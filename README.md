@@ -2,6 +2,8 @@
 
 GPU (CUDA) and CPU (OpenMP) brute-force tools to recover the **seed** used by FAAC SLH rolling-code keyfobs, given one or more captured RF frames and the manufacturer key.
 
+## See TUTORIAL.md for instruction
+
 ## How FAAC SLH Encryption Works
 
 FAAC SLH is a KeeLoq-based rolling code protocol. Each transmission is 64 bits:
@@ -137,13 +139,3 @@ A gap of 1 (consecutive presses) gives ~87% when there are ~1000 candidates. A g
 | Nibble check (even counter) | fix nibbles[6,7,5] |
 | Nibble check (odd counter) | fix nibbles[2,3,4] |
 | Keys in official firmware | `53696C7669618C14` (type 5, FAAC SLH) |
-
-## Files
-
-```
-faac_slh_bruteforce/
-  README.md
-  .gitignore
-  faac_slh_bruteforce_gpu.cu    # GPU brute-forcer (CUDA)
-  faac_slh_bruteforce_seed.c    # CPU brute-forcer (OpenMP)
-```
