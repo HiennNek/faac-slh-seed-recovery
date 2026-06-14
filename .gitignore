@@ -1,0 +1,14 @@
+# Compiled binaries
+faac_gpu
+faac_bf
+
+# Brute-force reports
+FAACBF_REPORT_*.txt
+
+# Editor backups
+*~
+*.bak
+
+# Build artifacts
+*.o
+*.out
