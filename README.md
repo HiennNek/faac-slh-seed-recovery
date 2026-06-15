@@ -1,8 +1,6 @@
 # FAAC SLH Seed Brute-Force Tools
 
-GPU (CUDA) and CPU (OpenMP) brute-force tools to recover the **seed** used by FAAC SLH rolling-code keyfobs, given one or more captured RF frames and the manufacturer key.
-
-## See TUTORIAL.md for instruction
+GPU (CUDA) and brute-force tools to recover the **seed** used by FAAC SLH rolling-code keyfobs, given one or more captured RF frames and the manufacturer key.
 
 ## How FAAC SLH Encryption Works
 
@@ -34,28 +32,22 @@ When 2 frames use the **same button**, they likely come from consecutive presses
 
 ## Prerequisites
 
-### GPU version (`faac_gpu`)
-
 - **NVIDIA GPU** with Compute Capability 5.0+ (tested on MX250, sm_61)
 - **CUDA Toolkit** (tested with 12.5)
 - **Compiler**: `clang++` (recommended if nvcc fails with modern GCC) or `nvcc`
-
-### CPU version (`faac_bf`)
-
-- **GCC** with OpenMP support
-- Significantly slower than GPU (~hours vs minutes)
 
 ## Compilation
 
 ```bash
 # GPU version (clang++ — recommended if nvcc fails on modern systems)
 clang++ --cuda-gpu-arch=sm_61 -O3 -o faac_gpu faac_slh_bruteforce_gpu.cu -L/opt/cuda/lib64 -lcuda -lcudart
+```
 
+Or with nvcc
+
+```bash
 # GPU version (nvcc)
 nvcc -O3 -o faac_gpu faac_slh_bruteforce_gpu.cu
-
-# CPU version
-gcc -O3 -fopenmp -lm -o faac_bf faac_slh_bruteforce_seed.c
 ```
 
 **Note**: If using clang++, adjust `--cuda-gpu-arch=` to match your GPU. Common values: `sm_61` (GTX 1050/1060, MX250), `sm_75` (RTX 20xx), `sm_86` (RTX 30xx).
@@ -64,8 +56,9 @@ gcc -O3 -fopenmp -lm -o faac_bf faac_slh_bruteforce_seed.c
 
 ```bash
 ./faac_gpu <mfkey_hex> <frame1_hex> [frame2_hex ... frameN_hex]
-./faac_bf  <mfkey_hex> <frame1_hex> [frame2_hex ... frameN_hex]
 ```
+
+Use `53696C7669618C14` for `<mfkey_hex>`. It is the default manufacturer key, should work for most remote
 
 ### Arguments
 
@@ -139,3 +132,4 @@ A gap of 1 (consecutive presses) gives ~87% when there are ~1000 candidates. A g
 | Nibble check (even counter) | fix nibbles[6,7,5] |
 | Nibble check (odd counter) | fix nibbles[2,3,4] |
 | Keys in official firmware | `53696C7669618C14` (type 5, FAAC SLH) |
+

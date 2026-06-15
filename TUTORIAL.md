@@ -25,7 +25,7 @@ The counters increment with each press (e.g., 0x0A, 0x0B, 0x0C). Three consecuti
 4. **Press the same button 3+ times** in quick succession — like you're opening a gate
 5. You should see signals appear on screen
 
-Each saved file will contain a 64-bit frame like:
+Each captured signal will contain a 64-bit frame like:
 
 ```
 Key: A0 CE 0C 75 E0 B6 41 19
@@ -59,7 +59,7 @@ Fix=0xA0CE0C75 Hop=0xA23D4DDB Sn=A0CE0C7 Btn=5
 - Same `Btn` — essential for gap-sorting to work
 - Different `Hop` — shows the rolling code changed (expected)
 
-If `Sn` shows as `Unknown` or `Sd:Unknown`, don't worry — that just means the firmware doesn't have the right key to decode it. That's why we're brute-forcing.
+If `Sd` shows as `Unknown`, don't worry — that just means the firmware doesn't have the right key to decode it. That's why we're brute-forcing.
 
 ## Step 4: Run the Brute-Force
 
